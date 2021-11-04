@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     SizedBox(height: 30,),
-                    _title(Icons.email, "Email hahaha"),
+                    _title(Icons.email, "Email"),
                     _emailTextField(),
 
                     SizedBox(height: 30,),
