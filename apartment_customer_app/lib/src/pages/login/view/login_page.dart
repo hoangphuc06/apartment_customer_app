@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:apartment_customer_app/src/style/my_style.dart';
 import 'package:apartment_customer_app/src/widgets/buttons/main_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -128,11 +129,11 @@ class _LoginPageState extends State<LoginPage> {
       //               LoadingDialog.hideLoadingDialog(context);
       //               MsgDialog.showMsgDialog(context, "Đăng nhập thất bại", msg);
       //         });
+      FirebaseAuth _firebaseAuth =FirebaseAuth.instance;
+      _firebaseAuth.signInWithEmailAndPassword(email: email, password: pass).then((user) {
+        Navigator.pushReplacementNamed(context, "tab_page");
+      });
     }
-
-
-    //var auth = AuthBloc();
-
   }
 
   _emailTextField() => TextFormField(

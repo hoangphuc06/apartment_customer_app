@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +20,10 @@ class _SplashPageState extends State<SplashPage> {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 3), (){
-      Navigator.pushReplacementNamed(context, "login_page");
+      if (FirebaseAuth.instance.currentUser==null)
+        Navigator.pushReplacementNamed(context, "login_page");
+      else
+        Navigator.pushReplacementNamed(context, "tab_page");
     });
   }
 
