@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
       //         });
       FirebaseAuth _firebaseAuth =FirebaseAuth.instance;
       _firebaseAuth.signInWithEmailAndPassword(email: email, password: pass).then((user) {
-        Navigator.pushReplacementNamed(context, "tab_page");
+        Navigator.pushReplacementNamed(context, "home_page");
       });
     }
   }

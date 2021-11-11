@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
       if (FirebaseAuth.instance.currentUser==null)
         Navigator.pushReplacementNamed(context, "login_page");
       else
-        Navigator.pushReplacementNamed(context, "tab_page");
+        Navigator.pushReplacementNamed(context, "home_page");
     });
   }
 

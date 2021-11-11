@@ -1,5 +1,6 @@
 import 'package:apartment_customer_app/src/colors/colors.dart';
 import 'package:apartment_customer_app/src/pages/my_info/model/my_info_model.dart';
+import 'package:apartment_customer_app/src/widgets/navbar/navbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,14 @@ class _MyInfoPageState extends State<MyInfoPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) => getData(context));
+  }
+
+  Future<void> getData(BuildContext context) async {
     FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get()
         .then((value) => {
-      print(value["idUser"]),
+      print("email: " + value["email"]),
       FirebaseFirestore.instance.collection("dweller").doc(value["idUser"]).get()
           .then((value) => {
         _myInfo = MyInfo.fromDocument(value),
@@ -31,10 +37,8 @@ class _MyInfoPageState extends State<MyInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
+
       backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(
         backgroundColor: myGreen,
