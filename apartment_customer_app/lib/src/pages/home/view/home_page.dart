@@ -1,4 +1,5 @@
 import 'package:apartment_customer_app/src/colors/colors.dart';
+import 'package:apartment_customer_app/src/widgets/appbars/my_app_bar.dart';
 import 'package:apartment_customer_app/src/widgets/navbar/navbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -56,15 +57,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
       backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(
-        backgroundColor: myGreen,
+        iconTheme: IconThemeData(
+          color: myGreen, //change your color here
+        ),
+        backgroundColor: Colors.white,
         elevation: 0,
+        title: Text("Trang chủ", style: TextStyle(color: myGreen,),),
         centerTitle: true,
-        title:  Text(
-          "Trang chủ",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),),
+        actions: [
+          IconButton(onPressed: (){}, icon: Icon(Icons.logout), tooltip: "Đăng xuất",)
+        ],
+      ),
+      body: SingleChildScrollView(
+
       ),
     );
   }

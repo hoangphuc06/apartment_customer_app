@@ -2,6 +2,7 @@ import 'package:apartment_customer_app/src/pages/home/view/home_page.dart';
 import 'package:apartment_customer_app/src/pages/login/view/login_page.dart';
 import 'package:apartment_customer_app/src/pages/news/view/news_page.dart';
 import 'package:apartment_customer_app/src/pages/splash/view/splash_page.dart';
+import 'package:apartment_customer_app/src/pages/tab/view/tabs_page.dart';
 import 'package:flutter/material.dart';
 
 final routes = <String, WidgetBuilder>{

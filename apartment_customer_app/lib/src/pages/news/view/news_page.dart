@@ -1,6 +1,7 @@
 import 'package:apartment_customer_app/src/colors/colors.dart';
 import 'package:apartment_customer_app/src/pages/news/model/news_model.dart';
 import 'package:apartment_customer_app/src/pages/news/view/news_detail_page.dart';
+import 'package:apartment_customer_app/src/widgets/appbars/my_app_bar.dart';
 import 'package:apartment_customer_app/src/widgets/cards/news_card.dart';
 import 'package:apartment_customer_app/src/widgets/navbar/navbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -34,16 +35,8 @@ class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: myGreen,
-        elevation: 0,
-        centerTitle: true,
-        title:  Text(
-          "Tin tức",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),),
-      ),
+      appBar: myAppBar("Tin tức"),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -112,7 +105,6 @@ class _NewsPageState extends State<NewsPage> {
                   }
                 ),
               ),
-              Divider(),
               StreamBuilder(
                   stream: FirebaseFirestore.instance.collection("news").snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

@@ -1,5 +1,6 @@
 import 'package:apartment_customer_app/src/colors/colors.dart';
 import 'package:apartment_customer_app/src/pages/news/model/news_model.dart';
+import 'package:apartment_customer_app/src/widgets/appbars/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -16,14 +17,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(1),
-      appBar: AppBar(
-        backgroundColor: myGreen, //Color(0xff44a682),
-        elevation: 0,
-        centerTitle: true,
-        title:  Text(
-          "Chi tiết tin tức",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),),
-      ),
+      appBar: myAppBar("chi tiết tin tức"),
       body: Container(
         //padding: EdgeInsets.all(12),
         child: SingleChildScrollView(

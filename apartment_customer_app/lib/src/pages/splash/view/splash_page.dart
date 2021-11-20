@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:apartment_customer_app/src/pages/tab/view/tabs_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,13 @@ class _SplashPageState extends State<SplashPage> {
       if (FirebaseAuth.instance.currentUser==null)
         Navigator.pushReplacementNamed(context, "login_page");
       else
-        Navigator.pushReplacementNamed(context, "home_page");
+      {
+        FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
+          print("id nè:" + value["idUser"].toString()),
+          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TabsPage(idUser: value["idUser"].toString(),))),
+        });
+        //Navigator.pushReplacementNamed(context, "tabs_page");
+      }
     });
   }
 
