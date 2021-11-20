@@ -8,6 +8,5 @@ import 'package:flutter/material.dart';
 final routes = <String, WidgetBuilder>{
   "splash_page": (BuildContext context) => SplashPage(),
   "login_page": (BuildContext context) => LoginPage(),
-  "home_page": (BuildContext context) => HomePage(),
   "news_page": (BuildContext context) => NewsPage(),
 };

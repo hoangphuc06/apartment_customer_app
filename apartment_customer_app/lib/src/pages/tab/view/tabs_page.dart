@@ -15,12 +15,7 @@ class TabsPage extends StatefulWidget {
 
 class _TabsPageState extends State<TabsPage> {
 
-  List<Widget> _widgetOptions = [
-    HomePage(),
-    NewsPage(),
-    FixPage(),
-    BillPage(),
-  ];
+
 
   int _selectedItemIndex = 0;
 
@@ -37,8 +32,15 @@ class _TabsPageState extends State<TabsPage> {
     print("id ne:" + this.widget.idUser);
   }
 
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> _widgetOptions = [
+      HomePage(idUser: widget.idUser),
+      NewsPage(),
+      FixPage(),
+      BillPage(),
+    ];
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedItemIndex),
       bottomNavigationBar: _bottomNavigationBar(context),
