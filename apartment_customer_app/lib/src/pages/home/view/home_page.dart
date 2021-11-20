@@ -67,7 +67,12 @@ class _HomePageState extends State<HomePage> {
         title: Text("Trang chủ", style: TextStyle(color: myGreen,),),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.logout), tooltip: "Đăng xuất",)
+          IconButton(
+            onPressed: (){
+              FirebaseAuth.instance.signOut();
+              Navigator.pushReplacementNamed(context, "login_page");
+            },
+            icon: Icon(Icons.logout), tooltip: "Đăng xuất",)
         ],
       ),
       body: SingleChildScrollView(

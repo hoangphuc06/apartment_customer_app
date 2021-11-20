@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:apartment_customer_app/src/pages/tab/view/tabs_page.dart';
 import 'package:apartment_customer_app/src/style/my_style.dart';
 import 'package:apartment_customer_app/src/widgets/buttons/main_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -115,23 +116,12 @@ class _LoginPageState extends State<LoginPage> {
     String pass = _passController.text;
 
     if(_formkey.currentState!.validate()) {
-      // LoadingDialog.showLoadingDialog(context, "Loading...");
-      //
-      // authBloc.signIn(
-      //     email,
-      //     pass,
-      //     () {
-      //       UpdatePassWordState.email=email;
-      //           LoadingDialog.hideLoadingDialog(context);
-      //           Navigator.pushReplacementNamed(context, "tab_page");
-      //       },
-      //     (msg) {
-      //               LoadingDialog.hideLoadingDialog(context);
-      //               MsgDialog.showMsgDialog(context, "Đăng nhập thất bại", msg);
-      //         });
-      FirebaseAuth _firebaseAuth =FirebaseAuth.instance;
+      FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
       _firebaseAuth.signInWithEmailAndPassword(email: email, password: pass).then((user) {
-        Navigator.pushReplacementNamed(context, "tabs_page");
+        FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
+          print("id nè:" + value["idUser"].toString()),
+          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TabsPage(idUser: value["idUser"].toString(),))),
+        });
       });
     }
   }
