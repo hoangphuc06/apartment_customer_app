@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:apartment_customer_app/src/pages/home/view/home_page.dart';
 import 'package:apartment_customer_app/src/pages/tab/view/tabs_page.dart';
 import 'package:apartment_customer_app/src/style/my_style.dart';
 import 'package:apartment_customer_app/src/widgets/buttons/main_button.dart';
@@ -120,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
       _firebaseAuth.signInWithEmailAndPassword(email: email, password: pass).then((user) {
         FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
           print("id nè:" + value["idUser"].toString()),
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TabsPage(idUser: value["idUser"].toString(),))),
+          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage(idUser: value["idUser"].toString(),))),
         });
       });
     }

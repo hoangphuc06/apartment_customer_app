@@ -12,49 +12,20 @@ class NewsCard extends StatelessWidget {
     return GestureDetector(
       onTap: funtion,
       child: Container(
-        margin: EdgeInsets.all(8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: Image(
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-                image: NetworkImage(this.news.image.toString()),
-              ),
-            ),
-            SizedBox(width: 15,),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    this.news.title.toString(),
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500
-                    ),
-                    textAlign: TextAlign.justify,
-                    overflow: TextOverflow.ellipsis,
-
-                    maxLines: 3,
-                  ),
-                  SizedBox(height: 5,),
-                  Text(
-                    readDatime(this.news.timestamp.toString()),
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
+        decoration: BoxDecoration(
+            color: Colors.blueGrey.withOpacity(0.2),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        padding: EdgeInsets.all(16),
+        margin: EdgeInsets.only(bottom: 12),
+        child: Text(
+          this.news.title.toString(),
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold
+          ),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
       ),
     );

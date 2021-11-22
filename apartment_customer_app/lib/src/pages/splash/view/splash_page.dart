@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:apartment_customer_app/src/pages/home/view/home_page.dart';
 import 'package:apartment_customer_app/src/pages/tab/view/tabs_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,7 +29,7 @@ class _SplashPageState extends State<SplashPage> {
       {
         FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
           print("id nè:" + value["idUser"].toString()),
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TabsPage(idUser: value["idUser"].toString(),))),
+          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage(idUser: value["idUser"].toString(),))),
         });
         //Navigator.pushReplacementNamed(context, "tabs_page");
       }

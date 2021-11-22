@@ -2,20 +2,21 @@ import 'package:apartment_customer_app/src/colors/colors.dart';
 import 'package:apartment_customer_app/src/pages/bill/view/bill_page.dart';
 import 'package:apartment_customer_app/src/pages/fix/view/fix_page.dart';
 import 'package:apartment_customer_app/src/pages/home/view/home_page.dart';
+import 'package:apartment_customer_app/src/pages/my_apartment/view/my_apartment_page.dart';
+import 'package:apartment_customer_app/src/pages/my_dweller/view/my_dweller_page.dart';
 import 'package:apartment_customer_app/src/pages/news/view/news_page.dart';
 import 'package:flutter/material.dart';
 
 class TabsPage extends StatefulWidget {
   final String idUser;
-  const TabsPage({Key? key, required this.idUser}) : super(key: key);
+  final String idRoom;
+  const TabsPage({Key? key, required this.idUser, required this.idRoom}) : super(key: key);
 
   @override
   _TabsPageState createState() => _TabsPageState();
 }
 
 class _TabsPageState extends State<TabsPage> {
-
-
 
   int _selectedItemIndex = 0;
 
@@ -36,8 +37,8 @@ class _TabsPageState extends State<TabsPage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = [
-      HomePage(idUser: widget.idUser),
-      NewsPage(),
+      MyApartmentPage(idUser: this.widget.idUser, idRoom: this.widget.idRoom),
+      MyDwellerPage(idUser: this.widget.idUser, idRoom: this.widget.idRoom),
       FixPage(),
       BillPage(),
     ];
@@ -57,8 +58,8 @@ class _TabsPageState extends State<TabsPage> {
       onTap: _cambiarWidget,
       showUnselectedLabels: true,
       items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Trang chủ"),
-        BottomNavigationBarItem(icon: Icon(Icons.mail), label: "Thông báo"),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Căn hộ"),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: "Thành viên"),
         BottomNavigationBarItem(icon: Icon(Icons.build), label: "Sửa chữa"),
         BottomNavigationBarItem(icon: Icon(Icons.description), label: "Hóa đơn"),
       ],
