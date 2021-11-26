@@ -39,7 +39,7 @@ class _TabsPageState extends State<TabsPage> {
     List<Widget> _widgetOptions = [
       MyApartmentPage(idUser: this.widget.idUser, idRoom: this.widget.idRoom),
       MyDwellerPage(idUser: this.widget.idUser, idRoom: this.widget.idRoom),
-      FixPage(),
+      FixPage(idRoom: this.widget.idRoom),
       BillPage(),
     ];
     return Scaffold(
