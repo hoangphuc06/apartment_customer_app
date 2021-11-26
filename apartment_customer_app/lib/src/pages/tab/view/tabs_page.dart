@@ -31,9 +31,8 @@ class _TabsPageState extends State<TabsPage> {
   TextEditingController _dateContract = TextEditingController();
   @override
   void initState() {
-    
     super.initState();
-    print( _dateContract.text);
+    print(_dateContract.text);
     print("id ne:" + this.widget.idUser);
   }
 
@@ -42,8 +41,11 @@ class _TabsPageState extends State<TabsPage> {
     List<Widget> _widgetOptions = [
       MyApartmentPage(idUser: this.widget.idUser, idRoom: this.widget.idRoom),
       MyDwellerPage(idUser: this.widget.idUser, idRoom: this.widget.idRoom),
-      FixPage(),
-      BillPage(idRoom: this.widget.idRoom,dateContract: _dateContract.text,),
+      BillPage(
+        idRoom: this.widget.idRoom,
+        dateContract: _dateContract.text,
+      ),
+      FixPage(idRoom: this.widget.idRoom),
     ];
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedItemIndex),
