@@ -80,8 +80,7 @@ class _BillPaidState extends State<BillPaid> {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             BillDetailPage(
-                                                              flag: false,
-                                                              id: x[
+                                                              id: y[
                                                                   'idBillInfo'],
                                                             )));
                                               })

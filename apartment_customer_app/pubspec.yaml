@@ -23,6 +23,8 @@ dependencies:
   carousel_slider: ^4.0.0
   firebase_storage: ^10.1.0
   file_picker: ^4.2.4
+  pdf: ^3.6.3
+  open_file: ^3.2.1
 
 dev_dependencies:
   flutter_test:
@@ -34,3 +36,10 @@ flutter:
 
   assets:
     - assets/images/
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/OpenSans-Bold.ttf
+        - asset: assets/OpenSans-BoldItalic.ttf
+        - asset: assets/OpenSans-Italic.ttf
+        - asset: assets/OpenSans-Regular.ttf

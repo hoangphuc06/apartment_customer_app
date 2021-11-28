@@ -82,7 +82,7 @@ class _UnpaidInvoiceState extends State<UnpaidInvoice> {
                         StreamBuilder(
                             stream: billInfoFB.collectionReference
                                 .where('idContract', isEqualTo: x['id'])
-                                .where('status',isEqualTo: 'Chưa thanh toán')
+                                .where('status', isEqualTo: 'Chưa thanh toán')
                                 .snapshots(),
                             builder: (context,
                                 AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -110,8 +110,7 @@ class _UnpaidInvoiceState extends State<UnpaidInvoice> {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             BillDetailPage(
-                                                              flag: false,
-                                                              id: x[
+                                                              id: y[
                                                                   'idBillInfo'],
                                                             )));
                                               })

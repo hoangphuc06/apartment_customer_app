@@ -1,6 +1,5 @@
 import 'package:apartment_customer_app/src/colors/colors.dart';
 import 'package:apartment_customer_app/src/pages/bill/view/bill_paid.dart';
-import 'package:apartment_customer_app/src/pages/bill/view/overdue_invoice.dart';
 import 'package:apartment_customer_app/src/pages/bill/view/unpaid_invoice.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ class BillPage extends StatefulWidget {
   // const BillPage({Key? key}) : super(key: key);
   final String idRoom;
   final String dateContract;
-  BillPage({required this.idRoom,required this.dateContract});
+  BillPage({required this.idRoom, required this.dateContract});
   @override
   _BillPageState createState() => _BillPageState();
 }
@@ -17,7 +16,7 @@ class _BillPageState extends State<BillPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: myGreen,
@@ -38,16 +37,20 @@ class _BillPageState extends State<BillPage> {
                 text: "Chưa thanh toán",
               ),
               Tab(
-                text: "Quá hạn thanh toán",
-              ),
-              Tab(
                 text: "Đã thanh toán",
               ),
             ],
           ),
         ),
         body: TabBarView(
-          children: [UnpaidInvoice(idRoom: widget.idRoom,), OverdueInvoice(), BillPaid(idRoom: widget.idRoom,)],
+          children: [
+            UnpaidInvoice(
+              idRoom: widget.idRoom,
+            ),
+            BillPaid(
+              idRoom: widget.idRoom,
+            )
+          ],
         ),
       ),
     );

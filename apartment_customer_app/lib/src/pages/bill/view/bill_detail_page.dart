@@ -1,14 +1,17 @@
 import 'package:apartment_customer_app/src/colors/colors.dart';
+import 'package:apartment_customer_app/src/pages/bill/PDF/pdf_api.dart';
+import 'package:apartment_customer_app/src/pages/bill/PDF/pdf_form_bill.dart';
 import 'package:apartment_customer_app/src/pages/bill/firebase/fb_billService.dart';
 import 'package:apartment_customer_app/src/pages/bill/firebase/fb_billinfo.dart';
+import 'package:apartment_customer_app/src/pages/bill/model/billService_model.dart';
+import 'package:apartment_customer_app/src/pages/bill/model/bill_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 
 class BillDetailPage extends StatefulWidget {
   String id;
-  bool flag;
-  BillDetailPage({required this.id, required this.flag});
+  BillDetailPage({required this.id});
 
   @override
   _BillInfoPageState createState() => _BillInfoPageState();
@@ -47,12 +50,29 @@ class _BillInfoPageState extends State<BillDetailPage> {
       });
   }
 
+  BillModel billModel = new BillModel();
+  List<BillService> listService = <BillService>[];
+  Future<void> loadData() async {
+    Stream<QuerySnapshot> query = billServiceFB.collectionReference
+        .where('idBillinfo', isEqualTo: widget.id)
+        .snapshots();
+    await query.forEach((x) {
+      x.docs.asMap().forEach((key, value) {
+        var t = x.docs[key];
+        listService.add(
+            BillService(name: t['nameService'], charge: t['chargeService']));
+      });
+    });
+  }
+
   @override
   void initState() {
-    billInfoFB.collectionReference
-        .doc(widget.id)
-        .get()
-        .then((value) => {_noteController.text = value['note']});
+    loadData();
+
+    billInfoFB.collectionReference.doc(widget.id).get().then((value) => {
+          _noteController.text = value['note'],
+          billModel = BillModel.fromDocument(value),
+        });
     super.initState();
   }
 
@@ -70,15 +90,16 @@ class _BillInfoPageState extends State<BillDetailPage> {
           elevation: 0,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                final pdfFile =
+                    await PdFFormBill.generate(billModel, listService);
+
+                PdfApi.openFile(pdfFile);
+              },
               icon: Icon(
                 Icons.find_in_page_outlined,
                 size: 30,
               ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.share),
             ),
           ],
           leading: IconButton(

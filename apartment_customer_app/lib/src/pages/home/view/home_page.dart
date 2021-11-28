@@ -20,7 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -37,139 +36,138 @@ class _HomePageState extends State<HomePage> {
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
                 background: Stack(children: [
-                  Image(
-                    width: double.infinity,
-                    height: 350,
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/cover.jpg'),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(color: Color.fromRGBO(0, 0, 0, 1.5)),
-                    width: double.infinity,
-                    height: 350,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Dream Building",
-                          style: GoogleFonts.aBeeZee(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "SĐT: 0336281849",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "Đ/c: KP6, Linh Trung, Thủ Đức, TP.HCM",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w500),
-                        )
-                      ],
+              Image(
+                width: double.infinity,
+                height: 350,
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/cover.jpg'),
+              ),
+              Container(
+                decoration: BoxDecoration(color: Color.fromRGBO(0, 0, 0, 1.5)),
+                width: double.infinity,
+                height: 350,
+              ),
+              Container(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Dream Building",
+                      style: GoogleFonts.aBeeZee(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ]))),
+                    SizedBox(height: 5),
+                    Text(
+                      "SĐT: 0336281849",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "Đ/c: KP6, Linh Trung, Thủ Đức, TP.HCM",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    )
+                  ],
+                ),
+              ),
+            ]))),
         SliverList(
             delegate: SliverChildListDelegate([
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: _title("Căn hộ của tôi"),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 16, right: 16),
-                child: StreamBuilder(
-                    stream: FirebaseFirestore.instance.collection("rentedRoom").where("idRenter", isEqualTo: this.widget.idUser).snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: Text("No Data"),
-                        );
-                      } else {
-                        return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            physics: ScrollPhysics(),
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, i) {
-                              QueryDocumentSnapshot x = snapshot.data!.docs[i];
-                              return ApartmentCard(
-                                idRoom: x["idRoom"],
-                                funtion: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => TabsPage(idUser: x["idRenter"], idRoom: x["idRoom"])));
-                                }
-                              );
-                            });
-                      }
-                    }),
-              ),
-
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: _title("Chung cư"),
-              ),
-              Container(
-                margin: EdgeInsets.all(16),
-                child: Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: [
-                    _lableButton(size, Icons.mail, "Thông báo", () {
-
-                    }),
-                  ],
-                ),
-              ),
-
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: _title("Tài khoản"),
-              ),
-              Container(
-                margin: EdgeInsets.all(16),
-                child: Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: [
-                    _lableButton(size, Icons.lock, "Đổi mật khẩu", () {
-
-                    }),
-                    _lableButton(size, Icons.logout, "Đăng xuất", () {
-
-                    }),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 50,)
-            ]))
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: _title("Căn hộ của tôi"),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 16, right: 16),
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("rentedRoom")
+                    .where("idRenter", isEqualTo: this.widget.idUser)
+                    .where('expired',isEqualTo: false)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: Text("No Data"),
+                    );
+                  } else {
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, i) {
+                          QueryDocumentSnapshot x = snapshot.data!.docs[i];
+                          return ApartmentCard(
+                              idRoom: x["idRoom"],
+                              funtion: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TabsPage(
+                                            idUser: x["idRenter"],
+                                            idRoom: x["idRoom"])));
+                              });
+                        });
+                  }
+                }),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: _title("Chung cư"),
+          ),
+          Container(
+            margin: EdgeInsets.all(16),
+            child: Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                _lableButton(size, Icons.mail, "Thông báo", () {}),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: _title("Tài khoản"),
+          ),
+          Container(
+            margin: EdgeInsets.all(16),
+            child: Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                _lableButton(size, Icons.lock, "Đổi mật khẩu", () {}),
+                _lableButton(size, Icons.logout, "Đăng xuất", () {}),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 50,
+          )
+        ]))
       ]),
     );
   }
 
   _title(String text) => Text(
-    text,
-    style: TextStyle(
-        color: Colors.black.withOpacity(0.5),
-        fontWeight: FontWeight.bold
-    ),
-  );
+        text,
+        style: TextStyle(
+            color: Colors.black.withOpacity(0.5), fontWeight: FontWeight.bold),
+      );
 
   _lableButton(Size size, IconData icon, String text, funtion) =>
       GestureDetector(
@@ -200,30 +198,25 @@ class _HomePageState extends State<HomePage> {
       );
 
   _detail(String name, String detail) => Container(
-    padding: EdgeInsets.all(8),
-    height: 50,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: Colors.blueGrey.withOpacity(0.2)
-    ),
-    child: Row(
-      children: [
-        Text(
-          name,
-          style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold
-          ),
+        padding: EdgeInsets.all(8),
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Colors.blueGrey.withOpacity(0.2)),
+        child: Row(
+          children: [
+            Text(
+              name,
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            Spacer(),
+            Text(
+              detail,
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+            ),
+          ],
         ),
-        Spacer(),
-        Text(
-          detail,
-          style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500
-          ),
-        ),
-      ],
-    ),
-  );
+      );
 }
