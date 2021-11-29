@@ -133,7 +133,9 @@ class _HomePageState extends State<HomePage> {
               spacing: 10,
               runSpacing: 10,
               children: [
-                _lableButton(size, Icons.mail, "Thông báo", () {}),
+                _lableButton(size, Icons.mail, "Thông báo", () {
+                  Navigator.pushNamed(context, "news_page");
+                }),
               ],
             ),
           ),
@@ -150,8 +152,13 @@ class _HomePageState extends State<HomePage> {
               spacing: 10,
               runSpacing: 10,
               children: [
-                _lableButton(size, Icons.lock, "Đổi mật khẩu", () {}),
-                _lableButton(size, Icons.logout, "Đăng xuất", () {}),
+                _lableButton(size, Icons.lock, "Đổi mật khẩu", () {
+
+                }),
+                _lableButton(size, Icons.logout, "Đăng xuất", () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacementNamed(context, "login_page");
+                }),
               ],
             ),
           ),
