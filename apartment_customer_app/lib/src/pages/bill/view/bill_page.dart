@@ -19,27 +19,24 @@ class _BillPageState extends State<BillPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: myGreen,
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            "Hóa đơn",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+          iconTheme: IconThemeData(
+            color: myGreen, //change your color here
           ),
-          bottom: TabBar(
-            labelStyle: TextStyle(
-                color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
-            indicatorColor: Colors.white,
-            indicatorWeight: 5,
-            tabs: [
-              Tab(
-                text: "Chưa thanh toán",
-              ),
-              Tab(
-                text: "Đã thanh toán",
-              ),
-            ],
+          backgroundColor:Colors.white,
+          elevation: 1,
+          centerTitle: true,
+          title: Text("Hóa đơn", style: TextStyle(color: myGreen,),),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: TabBar(
+              labelColor: Colors.black,
+              indicatorColor: myGreen,
+              indicatorWeight: 3,
+              tabs: [
+                Tab(text: "Chưa thanh toán",),
+                Tab(text: "Đã thanh toán",),
+              ],
+            ),
           ),
         ),
         body: TabBarView(
