@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:apartment_customer_app/src/pages/home/view/home_page.dart';
 import 'package:apartment_customer_app/src/pages/tab/view/tabs_page.dart';
+import 'package:apartment_customer_app/src/pages/update_password/update_password_page.dart';
 import 'package:apartment_customer_app/src/style/my_style.dart';
 import 'package:apartment_customer_app/src/widgets/buttons/main_button.dart';
 import 'package:apartment_customer_app/src/widgets/dialog/loading_dialog.dart';
@@ -134,6 +135,8 @@ class _LoginPageState extends State<LoginPage> {
             password: pass
         );
 
+        UpdatePassWordState.email=email;
+        
         LoadingDialog.hideLoadingDialog(context);
 
         FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
