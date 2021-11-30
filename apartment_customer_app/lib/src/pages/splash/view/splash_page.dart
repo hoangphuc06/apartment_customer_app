@@ -23,16 +23,16 @@ class _SplashPageState extends State<SplashPage> {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 3), (){
-      if (FirebaseAuth.instance.currentUser==null)
-        Navigator.pushReplacementNamed(context, "login_page");
-      else
-      {
-        FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
-          print("id nè:" + value["idUser"].toString()),
-          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage(idUser: value["idUser"].toString(),))),
-        });
+      Navigator.pushReplacementNamed(context, "login_page");
+      // if (FirebaseAuth.instance.currentUser==null)
+      //   Navigator.pushReplacementNamed(context, "login_page");
+      // else
+      // {
+      //   FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
+      //     print("id nè:" + value["idUser"].toString()),
+      //     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage(idUser: value["idUser"].toString(),))),
+      //   });
         //Navigator.pushReplacementNamed(context, "tabs_page");
-      }
     });
   }
 
