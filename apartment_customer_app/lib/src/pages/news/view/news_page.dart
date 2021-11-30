@@ -38,6 +38,7 @@ class _NewsPageState extends State<NewsPage> {
       backgroundColor: Colors.white,
       appBar: myAppBar("Tin tức"),
       body: Container(
+        padding: EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column(
             children: [
