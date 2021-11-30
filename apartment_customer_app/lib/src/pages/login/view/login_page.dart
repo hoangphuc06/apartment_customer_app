@@ -4,6 +4,8 @@ import 'package:apartment_customer_app/src/pages/home/view/home_page.dart';
 import 'package:apartment_customer_app/src/pages/tab/view/tabs_page.dart';
 import 'package:apartment_customer_app/src/style/my_style.dart';
 import 'package:apartment_customer_app/src/widgets/buttons/main_button.dart';
+import 'package:apartment_customer_app/src/widgets/dialog/loading_dialog.dart';
+import 'package:apartment_customer_app/src/widgets/dialog/msg_dilog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -88,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 30,),
                     GestureDetector(
                       onTap: (){
-                        //Navigator.pushNamed(context, "reset_password_page");
+                        Navigator.pushNamed(context, "reset_pass_page");
                       },
                       child: Text(
                         "Quên mật khẩu?",
@@ -112,18 +114,58 @@ class _LoginPageState extends State<LoginPage> {
     ),
   );
 
-  void _onLoginClick() {
-    String email = _emailController.text;
-    String pass = _passController.text;
+  void _onLoginClick() async {
+    String email = _emailController.text.trim();
+    String pass = _passController.text.trim();
 
     if(_formkey.currentState!.validate()) {
-      FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-      _firebaseAuth.signInWithEmailAndPassword(email: email, password: pass).then((user) {
+
+      LoadingDialog.showLoadingDialog(context, "Loading...");
+
+      if (email=="ad.apartment.m12@gmail.com"){
+        LoadingDialog.hideLoadingDialog(context);
+        MsgDialog.showMsgDialog(context, "Đăng nhập thất bại", "Vui lòng sử dụng đúng loại tài khoản!");
+        return;
+      }
+
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: email,
+            password: pass
+        );
+
+        LoadingDialog.hideLoadingDialog(context);
+
         FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
           print("id nè:" + value["idUser"].toString()),
           Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage(idUser: value["idUser"].toString(),))),
         });
-      });
+
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+
+          LoadingDialog.hideLoadingDialog(context);
+
+          MsgDialog.showMsgDialog(context, "Đăng nhập thất bại", "Tài khoản này chưa được đăng kí");
+
+        } else if (e.code == 'wrong-password') {
+
+          LoadingDialog.hideLoadingDialog(context);
+
+          MsgDialog.showMsgDialog(context, "Đăng nhập thất bại", "Mật khẩu không chính xác");
+
+        }
+      }
+
+      // FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+      // _firebaseAuth.signInWithEmailAndPassword(email: email, password: pass)
+      // .then((user) {
+      //   LoadingDialog.hideLoadingDialog(context);
+      //   FirebaseFirestore.instance.collection("account").doc(FirebaseAuth.instance.currentUser!.uid.toString()).get().then((value) => {
+      //     print("id nè:" + value["idUser"].toString()),
+      //     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage(idUser: value["idUser"].toString(),))),
+      //   });
+      // });
     }
   }
 

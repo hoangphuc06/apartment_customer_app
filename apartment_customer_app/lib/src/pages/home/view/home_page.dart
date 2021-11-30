@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
               runSpacing: 10,
               children: [
                 _lableButton(size, Icons.lock, "Đổi mật khẩu", () {
-
+                  Navigator.pushNamed(context, "update_pass_page");
                 }),
                 _lableButton(size, Icons.logout, "Đăng xuất", () {
                   FirebaseAuth.instance.signOut();
